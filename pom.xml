@@ -19,6 +19,10 @@
         <version>2.7.5</version>
         <relativePath/>
     </parent>
+    <dependencies>
+
+
+    </dependencies>
 <modules>
     <module>dispatcher</module>
 </modules>
