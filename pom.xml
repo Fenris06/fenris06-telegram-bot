@@ -32,11 +32,11 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
     </dependencies>
 <modules>
     <module>dispatcher</module>
     <module>common-rabbitmq</module>
+    <module>node</module>
 </modules>
 
 
