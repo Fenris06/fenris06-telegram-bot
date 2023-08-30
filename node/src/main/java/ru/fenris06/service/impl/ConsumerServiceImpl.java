@@ -30,11 +30,13 @@ public class ConsumerServiceImpl implements ConsumerService {
     @RabbitListener(queues = DOC_MESSAGE_UPDATE)
     public void consumerDocMessageUpdates(Update update) {
         log.debug("Node: doc message received");
+        mainService.processDocMessage(update);
     }
 
     @Override
     @RabbitListener(queues = PHOTO_MESSAGE_UPDATE)
     public void consumerPhotoMessageUpdates(Update update) {
         log.debug("Node: photo message received");
+        mainService.processPhotoMessage(update);
     }
 }
