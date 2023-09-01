@@ -18,6 +18,7 @@ import ru.fenris06.exception.UploadFileException;
 import ru.fenris06.service.FileService;
 import ru.fenris06.service.MainService;
 import ru.fenris06.service.ProduceService;
+import ru.fenris06.service.enums.LinkType;
 import ru.fenris06.service.enums.ServiceCommand;
 
 import static ru.fenris06.entity.enums.UserState.BASIC_STATE;
@@ -69,8 +70,8 @@ public class MainServiceImpl implements MainService {
         }
         try {
             AppDocument doc = fileService.processDoc(update.getMessage());
-            //TODO add save document
-            String answer = "Document is upload. Download link: http://test.ru/get-document/777";
+            String link = fileService.generateLink(doc.getId(), LinkType.GET_DOC);
+            String answer = "Document is upload. Download link: " + link;
             sendAnswer(answer, chatId);
         } catch (UploadFileException e) {
             log.error(e);
@@ -91,8 +92,8 @@ public class MainServiceImpl implements MainService {
 
         try {
             AppPhoto photo = fileService.processPhoto(update.getMessage());
-            //TODO добавить генерацию ссылки на фото
-            String answer = "Photo is upload. Download link: http://test.ru/get-photo/777";
+            String link = fileService.generateLink(photo.getId(), LinkType.GET_PHOTO);
+            String answer = "Photo is upload. Download link: " + link;
             sendAnswer(answer, chatId);
         } catch (UploadFileException e) {
             log.error(e);

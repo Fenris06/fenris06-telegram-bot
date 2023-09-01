@@ -11,6 +11,7 @@ import ru.fenris06.entity.AppDocument;
 import ru.fenris06.entity.AppPhoto;
 import ru.fenris06.entity.BinaryContent;
 import ru.fenris06.service.FileService;
+import ru.fenris06.utils.CryptoTool;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,18 +22,23 @@ import java.io.IOException;
 public class FileServiceImpl implements FileService {
     private final AppDocumentRepository appDocumentRepository;
     private final AppPhotoRepository appPhotoRepository;
+    private final CryptoTool cryptoTool;
 
     @Override
-    public AppDocument getDocument(String docId) {
-        //TODO добавить де шифрование
-        Long id = Long.parseLong(docId);
+    public AppDocument getDocument(String hash) {
+        Long id = cryptoTool.idOf(hash);
+        if (id == null) {
+            return null;
+        }
         return appDocumentRepository.findById(id).orElse(null);
     }
 
     @Override
-    public AppPhoto getPhoto(String photoID) {
-        //TODO добавить де шифрование
-        Long id = Long.parseLong(photoID);
+    public AppPhoto getPhoto(String hash) {
+        Long id = cryptoTool.idOf(hash);
+        if (id == null) {
+            return null;
+        }
         return appPhotoRepository.findById(id).orElse(null);
     }
 
