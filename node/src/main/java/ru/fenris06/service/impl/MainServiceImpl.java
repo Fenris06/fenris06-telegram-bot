@@ -2,6 +2,7 @@ package ru.fenris06.service.impl;
 
 import ru.fenris06.dao.AppUserRepository;
 import ru.fenris06.entity.AppDocument;
+import ru.fenris06.entity.AppPhoto;
 import ru.fenris06.entity.AppUser;
 
 import lombok.RequiredArgsConstructor;
@@ -87,9 +88,17 @@ public class MainServiceImpl implements MainService {
         if (isNotAllowToSendContent(chatId, appUser)) {
             return;
         }
-        //TODO add save photo
-        String answer = "Photo is upload. Download link: http://test.ru/get-photo/777";
-        sendAnswer(answer, chatId);
+
+        try {
+            AppPhoto photo = fileService.processPhoto(update.getMessage());
+            //TODO добавить генерацию ссылки на фото
+            String answer = "Photo is upload. Download link: http://test.ru/get-photo/777";
+            sendAnswer(answer, chatId);
+        } catch (UploadFileException e) {
+            log.error(e);
+            String error = "Sorry! Photo is not upload. Try again";
+            sendAnswer(error, chatId);
+        }
     }
 
     private boolean isNotAllowToSendContent(Long chatId, AppUser appUser) {
