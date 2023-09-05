@@ -21,6 +21,8 @@ import ru.fenris06.service.ProduceService;
 import ru.fenris06.service.enums.LinkType;
 import ru.fenris06.service.enums.ServiceCommand;
 
+import java.util.Optional;
+
 import static ru.fenris06.entity.enums.UserState.BASIC_STATE;
 import static ru.fenris06.entity.enums.UserState.WAIT_FORE_EMAIL_STATE;
 import static ru.fenris06.service.enums.ServiceCommand.*;
@@ -152,8 +154,8 @@ public class MainServiceImpl implements MainService {
 
     private AppUser findOurSaveAppUser(Update update) {
         User telegramUser = update.getMessage().getFrom();
-        AppUser persistentAppUser = appUserRepository.findByTelegramUserId(telegramUser.getId());
-        if (persistentAppUser == null) {
+        Optional<AppUser> optional = appUserRepository.findByTelegramUserId(telegramUser.getId());
+        if (optional.isEmpty()) {
             AppUser transientUser = AppUser.builder()
                     .telegramUserId(telegramUser.getId())
                     .userName(telegramUser.getUserName())
@@ -165,7 +167,7 @@ public class MainServiceImpl implements MainService {
                     .build();
             return appUserRepository.save(transientUser);
         }
-        return persistentAppUser;
+        return optional.get();
     }
 
     private void saveRAwData(Update update) {
