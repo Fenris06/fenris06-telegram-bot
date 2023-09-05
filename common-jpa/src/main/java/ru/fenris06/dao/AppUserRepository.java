@@ -11,4 +11,11 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
             "from AppUser a " +
             "where a.telegramUserId = ?1")
     Optional<AppUser> findByTelegramUserId(Long telegramUserId);
+
+    @Query("select a " +
+            "from AppUser a " +
+            "where a.email = ?1")
+    Optional<AppUser> findByEmail(String email);
+
+    Optional<AppUser> findById(Long id);
 }

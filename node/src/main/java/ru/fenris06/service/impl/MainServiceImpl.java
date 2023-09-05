@@ -15,6 +15,7 @@ import ru.fenris06.dao.RawDataRepository;
 import ru.fenris06.entity.RawData;
 import ru.fenris06.entity.enums.UserState;
 import ru.fenris06.exception.UploadFileException;
+import ru.fenris06.service.AppUserService;
 import ru.fenris06.service.FileService;
 import ru.fenris06.service.MainService;
 import ru.fenris06.service.ProduceService;
@@ -35,6 +36,7 @@ public class MainServiceImpl implements MainService {
     private final ProduceService produceService;
     private final AppUserRepository appUserRepository;
     private final FileService fileService;
+    private final AppUserService appUserService;
 
     @Override
     public void processTextMessage(Update update) {
@@ -51,7 +53,7 @@ public class MainServiceImpl implements MainService {
         } else if (BASIC_STATE.equals(userState)) {
             output = processServiceCommand(appUser, text);
         } else if (WAIT_FORE_EMAIL_STATE.equals(userState)) {
-            //TODO добавить обработку email
+            output = appUserService.setEmail(appUser, text);
         } else {
             log.error("Unknown state error " + userState);
             output = "Unknown state error! Enter /cancel and try again";
@@ -128,8 +130,7 @@ public class MainServiceImpl implements MainService {
     private String processServiceCommand(AppUser appUser, String cmd) {
         ServiceCommand serviceCommand = ServiceCommand.fromValue(cmd);
         if (REGISTRATION.equals(serviceCommand)) {
-            //TODO add registration late
-            return "Temporarily not available";
+            return appUserService.registerUser(appUser);
         } else if (HELP.equals(serviceCommand)) {
             return help();
         } else if (START.equals(serviceCommand)) {
@@ -161,8 +162,7 @@ public class MainServiceImpl implements MainService {
                     .userName(telegramUser.getUserName())
                     .firstName(telegramUser.getFirstName())
                     .lastName(telegramUser.getLastName())
-                    //TODO изменить значение по умолчанию после добавления в базу
-                    .isActive(true)
+                    .isActive(false)
                     .state(BASIC_STATE)
                     .build();
             return appUserRepository.save(transientUser);
