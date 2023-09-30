@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource("classpath:dispatcher.properties")
-public class DispatcherApplication {
+@PropertySource("classpath:rest.properties")
+public class RestServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DispatcherApplication.class);
+        SpringApplication.run(RestServiceApplication.class);
     }
 }

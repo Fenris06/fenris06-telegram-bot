@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource("classpath:dispatcher.properties")
-public class DispatcherApplication {
+@PropertySource("classpath:node.properties")
+public class NodeApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DispatcherApplication.class);
+        SpringApplication.run(NodeApplication.class);
     }
 }
