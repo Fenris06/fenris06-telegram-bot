@@ -71,3 +71,4 @@
 2023-09-05 19:25:19 DEBUG ConsumerServiceImpl:25 - Node: text message received
 2023-09-05 19:26:36 DEBUG ConsumerServiceImpl:25 - Node: text message received
 2023-09-05 19:27:56 DEBUG ConsumerServiceImpl:32 - Node: doc message received
+2023-09-30 13:49:37 DEBUG ConsumerServiceImpl:39 - Node: photo message received

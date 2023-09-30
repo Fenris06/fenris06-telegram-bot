@@ -1,4 +1,4 @@
-package ru.fenris06.configuration;
+package ru.fenris06.entity.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

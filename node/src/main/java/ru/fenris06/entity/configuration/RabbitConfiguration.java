@@ -1,4 +1,4 @@
-package ru.fenris06.configuration;
+package ru.fenris06.entity.configuration;
 
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
